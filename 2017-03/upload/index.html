@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>file upload demo</title>
+</head>
+<body>
+  <h2>表单提交demo</h2>
+  <form action='/upload' method='POST'>
+    <label>username</label><input type='text' name='username'/>
+    <label>password</label><input type='password' name='password'/>
+    <button>submit</button>
+  </form>
+  <h2>ajax提交json demo</h2>
+  <button class='json'>submit json</button>
+  <h2>文件上传 demo</h2>
+  <form action='/upload' method='POST' enctype='multipart/form-data'>
+    <label>选择文件</label><input type='file' name='file'/>
+    <button>submit</button>
+  </form>
+
+<script>
+window.onload=function(){
+  var jsonSubmit=document.querySelector('.json');
+  jsonSubmit.onclick=function(e){
+    var xhr=new XMLHttpRequest();
+    xhr.onreadystatechange=function(){
+      if(xhr.readyState==4&&xhr.status==200){
+        alert(xhr.responseText);
+      }
+    }
+    xhr.open('post','/upload');
+    xhr.setRequestHeader('Content-Type','application/json');
+    xhr.send(JSON.stringify({
+      username: 'hello world',
+      password: '12345'
+    }));
+  }
+
+}
+</script>
+</body>
+</html>
